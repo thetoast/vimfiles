@@ -1,22 +1,21 @@
-filetype plugin on
-filetype indent on
+" todo: get my windows machine's colorscheme synced up
+colorscheme evening
+" todo: get the proggyclean font running on my mac
+syntax on
+filetype plugin indent on
 "setlocal spell spelllang=en
 
-syntax on
+" enable pathogen
+call pathogen#infect()
 
+" Set Variables {{{
 set nu
-
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set winminheight=0 " for window rolodexing
-
-
-" todo: get my windows machine's colorscheme synced up
-colorscheme evening
-
-" todo: get the proggyclean font running on my mac
+"}}}
 
 " Key Mappings {{{
 let mapleader=";"
