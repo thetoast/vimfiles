@@ -37,6 +37,17 @@ set spelllang=en_us
 
 " remove complete preview window
 set completeopt-=preview
+
+" make backspace behave normally
+set backspace=indent,eol,start
+
+" search settings
+set hlsearch
+set incsearch
+
+" don't switch buffers in windows
+set switchbuf=useopen
+
 "}}}
 
 " Key Mappings {{{
@@ -51,14 +62,31 @@ nno <Leader>j <C-w>j<C-w>_
 nno <Leader>k <C-w>k<C-w>_
 
 " remove highlighted searches
-nno <Leader>n :noh
+nno <Leader>n :noh<CR>
 
 " spellmode
 nno <silent> <Leader>s :setlocal spell!<CR>
+
+" making things easier (PUN!)
+nno <Leader>m :make<CR><C-w>_
+nno <Leader>h :cp<CR><C-w>_:copen<CR>z10<CR><C-w><C-p>
+nno <Leader>l :cn<CR><C-w>_:copen<CR>z10<CR><C-w><C-p>
 "}}}
 
 " Autocommands {{{
+
+" auto compile latex files
 au BufWritePost *.tex :call system('latex -quiet ' . bufname('%'))
+
+" show quickfix window after make
+au QuickFixCmdPost make cw
+au QuickFixCmdPost make call MarkErrors()
+
+" highlight cursor line in current window
+au BufEnter * setlocal cursorline " hack so that vim startup and splitting still highlights
+au WinEnter * setlocal cursorline
+au WinLeave * setlocal nocursorline
+
 " }}}
 
 " Plugin Settings {{{
@@ -66,5 +94,27 @@ au BufWritePost *.tex :call system('latex -quiet ' . bufname('%'))
 " SuperTab
 let g:SuperTabDefaultCompletionType='context'
 " }}}
+
+sign define qferr text=>> texthl=Error
+
+function MarkErrors()
+    let list = getqflist()
+    let errno = 1
+
+    sign unplace *
+
+    for li in list
+        if li.valid
+            exec "sign place " . errno " line=" . li.lnum " name=qferr buffer=" . li.bufnr
+        endif
+    endfor
+endfunction
+
+" load local configs
+if filereadable($HOME . '/_vimlocal')
+    exec "source " . $HOME . "/_vimlocal"
+elseif filereadable($HOME . '/.vimlocal')
+    exec "source " . $HOME . "/.vimlocal"
+endif
 
 " vim:fdm=marker:
