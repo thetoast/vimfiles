@@ -1,7 +1,19 @@
 snippet psc "private static const" b
-private static const {$1:name} = ${2:value};
+private static const ${1:name}:${2:type} = ${3:value};
 endsnippet
 
 snippet Psc "public static const" b
-public static const ${1:name} = ${2:value};
+public static const ${1:name}:${2:type} = ${3:value};
+endsnippet
+
+snippet pv "private var" b
+private var ${1:name}:${2:type} = ${3:value};
+endsnippet
+
+snippet Pv "public var" b
+public var ${1:name}:${2:type} = ${3:value};
+endsnippet
+
+snippet v "var" b
+var ${1:name}:${2:type} = ${3:value};
 endsnippet
