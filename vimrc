@@ -2,9 +2,6 @@ colorscheme liquidcarbon
 syntax on
 filetype plugin indent on
 
-" enable pathogen
-call pathogen#infect()
-
 " Set Variables {{{
 set nu " line numbers
 set gfn=ProggyClean " awesome font
@@ -103,12 +100,38 @@ function MarkErrors()
 
     sign unplace *
 
+    let bufs_initted = {}
+
     for li in list
         if li.valid
+            if !has_key(bufs_initted, li.bufnr)
+                call setbufvar(li.bufnr, 'errs', {})
+                let bufs_initted[li.bufnr] = 1
+            endif
+
+            let errs = getbufvar(li.bufnr, 'errs')
+            let errs[li.lnum] = li.text
             exec "sign place " . errno " line=" . li.lnum " name=qferr buffer=" . li.bufnr
         endif
     endfor
 endfunction
+
+function ShowError(num)
+    if exists('b:errs')
+       if exists('b:errs[a:num]')
+           echo b:errs[a:num]
+       else
+           echo
+       endif
+    else
+        echo
+    endif
+endfunc
+au CursorMoved * call ShowError(line('.'))
+
+"
+" declare pathogen disabled list
+let g:pathogen_disabled = []
 
 " load local configs
 if filereadable($HOME . '/_vimlocal')
@@ -116,5 +139,9 @@ if filereadable($HOME . '/_vimlocal')
 elseif filereadable($HOME . '/.vimlocal')
     exec "source " . $HOME . "/.vimlocal"
 endif
+
+" enable pathogen
+call pathogen#infect()
+
 
 " vim:fdm=marker:
