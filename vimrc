@@ -129,6 +129,57 @@ function ShowError(num)
 endfunc
 au CursorMoved * call ShowError(line('.'))
 
+" QuickSearch code {{{
+let g:qs_mouse_mode = 0
+high quickMatch1 guibg=orange guifg=black
+high quickMatch2 guibg=green guifg=black
+high quickMatch3 guibg=cyan guifg=black
+
+function QuickSearchHighlight(word, alt, shift)
+    let matchnum = 1
+
+    if a:alt
+        let matchnum = 2
+    elseif a:shift
+        let matchnum = 3
+    endif
+
+    execute matchnum . "match quickMatch" . matchnum . " /" . a:word . "/"
+endfunc
+
+function ToggleMouseMode()
+    if g:qs_mouse_mode
+        let g:qs_mouse_mode = 0
+        set mouse=a
+    else
+        let g:qs_mouse_mode = 1
+        set mouse=icn
+    endif
+endfunc
+
+function ClearQuickSearch(...)
+    if a:0
+        execute a:1 . "match none"
+    else
+        match none
+        2match none
+        3match none
+    endif
+endfunc
+
+nmap <2-LeftMouse> :call QuickSearchHighlight("<C-R><C-W>", 0, 0)<CR>
+nmap <A-2-LeftMouse> :call QuickSearchHighlight("<C-R><C-W>", 1, 0)<CR>
+nmap <S-2-LeftMouse> :call QuickSearchHighlight("<C-R><C-W>", 0, 1)<CR>
+nmap <F12> :call ToggleMouseMode()<CR>
+nmap <Esc><Esc> :call ClearQuickSearch()<CR>
+nmap <Esc>1 :call ClearQuickSearch(1)<CR>
+nmap <Esc>2 :call ClearQuickSearch(2)<CR>
+nmap <Esc>3 :call ClearQuickSearch(3)<CR>
+vmap <F11> "zy :call QuickSearchHighlight(@z, 0, 0)<CR>
+vmap <A-F11> "zy :call QuickSearchHighlight(@z, 1, 0)<CR>
+vmap <S-F11> "zy :call QuickSearchHighlight(@z, 0, 1)<CR>
+" }}}
+
 "
 " declare pathogen disabled list
 let g:pathogen_disabled = []

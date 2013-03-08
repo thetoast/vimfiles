@@ -17,3 +17,24 @@ endsnippet
 snippet v "var" b
 var ${1:name}:${2:type} = ${3:value};
 endsnippet
+
+snippet notif "notificationCenter.addNotification" b
+notificationCenter.addNotification($1);
+endsnippet
+
+snippet simpn "Notification.SimpleNotification" b
+${1:var} = Notification.SimpleNotification(${2:text}, ${3:level}, ${4:timeout});
+endsnippet
+
+snippet newn "new Notification()" b
+${1:var} = new Notification();
+$1.text = ${2:text};
+$1.level = ${3:level};
+$1.clickables = {
+    ${4:first_clickable}: ${5:action}
+};
+endsnippet
+
+snippet dismiss "notificationCenter.dismissNotification" b
+notificationCenter.dismissNotification
+endsnippet
