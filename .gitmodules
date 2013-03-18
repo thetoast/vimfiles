@@ -4,3 +4,21 @@
 [submodule "bundle/MatchTagAlways"]
 	path = bundle/MatchTagAlways
 	url = https://github.com/Valloric/MatchTagAlways.git
+[submodule "bundle/jslint.vim"]
+    path = bundle/jslint.vim
+    url = https://github.com/hallettj/jslint.vim.git
+[submodule "bundle/ultisnips"]
+    path = bundle/ultisnips
+    url = https://github.com/SirVer/ultisnips
+[submodule "bundle/vim-ipython"]
+    path = bundle/vim-ipython
+    url = https://github.com/ivanov/vim-ipython.git
+[submodule "bundle/vim-less"]
+    path = bundle/vim-less
+    url = https://github.com/groenewege/vim-less.git
+[submodule "bundle/vim-ps1"]
+    path = bundle/vim-ps1
+    url = https://github.com/PProvost/vim-ps1
+[submodule "bundle/VimClojure"]
+    path = bundle/VimClojure
+    url = https://github.com/vim-scripts/VimClojure.git
