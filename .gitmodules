@@ -22,3 +22,6 @@
 [submodule "bundle/VimClojure"]
     path = bundle/VimClojure
     url = https://github.com/vim-scripts/VimClojure.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = https://github.com/ervandew/supertab.git
