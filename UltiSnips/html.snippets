@@ -6,14 +6,40 @@ snippet footer "Inserts a sofo page footer" b
 <div class="mustached" data-template-id="footer"></div>
 endsnippet
 
-snippet div "Inserts an empty div" !b
-<div id="$2" class="$1"></div>
+snippet div "Inserts an empty div" b
+<div>
+${0:${VISUAL}}
+</div>
 endsnippet
 
-snippet divni "Inserts an empty div without an id" !b
-<div class="$1"></div>
+snippet divi "Inserts an empty div with an id" b
+<div class="$1">$2</div>
 endsnippet
 
-snippet divnc "Insets an empty div without a class" !b
-<div id="$1"></div>
+snippet divc "Inserts an empty div with a class" b
+<div class="$1">$2</div>
+endsnippet
+
+snippet divic "Inserts an empty div with a class and id" b
+<div id="$1" class="$2">$3</div>
+endsnippet
+
+snippet must "Inserts a mustached div placeholder" b
+<div class="mustached" data-template-id="$1"></div>
+endsnippet
+
+snippet class "Inserts a class attribute"
+class="$1"
+endsnippet
+
+snippet rcid "Inserts a data-rcid attribute"
+data-rcid="$1"
+endsnippet
+
+snippet lbl "Inserts a label-text div" b
+<div class="label-text" data-rcid="$1"></div>
+endsnippet
+
+snippet span "<span> tag" !b
+<span>${VISUAL}$1</span>
 endsnippet
