@@ -3,7 +3,7 @@ syntax on
 filetype plugin indent on
 
 " Set Variables {{{
-set nu " line numbers
+set rnu " line numbers
 set gfn=ProggyClean " awesome font
 
 " some tab settings
@@ -90,6 +90,10 @@ au WinLeave * setlocal nocursorline
 
 " SuperTab
 let g:SuperTabDefaultCompletionType='context'
+
+" UltiSnips
+let g:UltiSnipsEditSplit='vertical'
+
 " }}}
 
 sign define qferr text=>> texthl=Error
