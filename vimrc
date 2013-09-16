@@ -122,16 +122,27 @@ endfunction
 
 function ShowError(num)
     if exists('b:errs')
-       if exists('b:errs[a:num]')
-           echo b:errs[a:num]
-       else
-           echo
-       endif
+        if exists('b:errs[a:num]')
+            echo b:errs[a:num]
+        else
+            echo
+        endif
     else
         echo
     endif
 endfunc
 au CursorMoved * call ShowError(line('.'))
+
+" Autoload any files which have a mode change {{{
+function CheckFileChangedEvent()
+    if v:fcs_reason == "mode"
+        let v:fcs_choice = "reload"
+    else
+        let v:fcs_choice = "ask"
+    endif
+endfunction
+au FileChangedShell * call CheckFileChangedEvent()
+" }}}
 
 " QuickSearch code {{{
 let g:qs_mouse_mode = 0
