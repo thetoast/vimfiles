@@ -1,6 +1,6 @@
 runtime! syntax/javascript.vim
 
-syn keyword typeScriptReserved module
+syn keyword typeScriptReserved module constructor
 
 syn match typeScriptRef -///\s*<reference\s\+.*/>$- contains=typeScriptRefD,typeScriptRefS
 syn region typeScriptRefD start=+"+ skip=+\\\\\|\\"+ end=+"\|$+
