@@ -90,9 +90,51 @@ au WinLeave * setlocal nocursorline
 
 " SuperTab
 let g:SuperTabDefaultCompletionType='context'
+let g:SuperTabDefaultCompletionType="<c-n>"
 
 " UltiSnips
 let g:UltiSnipsEditSplit='vertical'
+
+" neocomplcache {{{
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+
+" define completion keywords
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns['typescript'] = '[^. \t]\.\%(\h\w*\)\?'
+
+inoremap <expr><C-g>    neocomplcache#undo_completion()
+inoremap <expr><C-l>    neocomplcache#complete_common_string()
+
+" <CR>: close popup and save indent.
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+"    return neocomplcache#smart_close_popup() . "\<CR>"
+"endfunc
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" <BS>: close popup and delete backword char.
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" }}}
 
 " }}}
 
@@ -198,6 +240,7 @@ vmap <S-F11> "zy :call QuickSearchHighlight(@z, 0, 1)<CR>
 "
 " declare pathogen disabled list
 let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'jslint.vim')
 
 " load local configs
 if filereadable($HOME . '/_vimlocal')
