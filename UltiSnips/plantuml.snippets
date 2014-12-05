@@ -1,0 +1,94 @@
+global !p
+import re
+
+def shortname(filename):
+	pat = re.compile("^[a-zA-Z0-9]+")
+	match = pat.search(filename)
+	if match:
+		return match.group(0)
+	else:
+		return ""
+endglobal
+
+snippet uml "Creates a PlantUML uml block" !b
+@startuml
+$0
+@enduml
+endsnippet
+
+snippet guardm "Adds an include guard" !b
+!ifndef _$1_
+!define _$1_
+$0
+!endif
+endsnippet
+
+snippet guard "Adds an include guard" !b
+`!p
+guard = fn.replace(".", "_").upper()
+snip.rv += snip.mkline("!ifndef _{0}_\n".format(guard))
+snip.rv += snip.mkline("!define _{0}_".format(guard))
+`
+
+${VISUAL}$0
+
+`!p
+guard = fn.replace(".", "_").upper()
+snip.rv += snip.mkline("' _{0}_\n".format(guard))
+snip.rv += snip.mkline("!endif")
+`
+endsnippet
+
+snippet name "Creates a namespace" !b
+namespace $1 {
+
+${VISUAL}$0
+
+}
+endsnippet
+
+snippet cname "Creates a conditional namespace" !b
+!ifdef _${1/.*/\U$0\E/}_INCLUDE_
+namespace ${1:`!p snip.rv = shortname(snip.fn)`} {
+!endif
+
+${VISUAL}$0
+
+!ifdef _${1/.*/\U$0\E/}_INCLUDE_
+}
+!endif
+endsnippet
+
+snippet cnamem "Creates a conditional namespace with macros for referencing namespace" !b
+!ifdef _${1/.*/\U$0\E/}_INCLUDE_
+!define NAMESPACED(type) $1.type
+!define NESTED(namespace) $1.namespace
+namespace ${1:`!p snip.rv = shortname(snip.fn)`} {
+!else
+!define NAMESPACED(type) .type
+!define NESTED(namespace) namespace
+!endif
+
+${VISUAL}$0
+
+!ifdef _${1/.*/\U$0\E/}_INCLUDE_
+}
+!endif
+endsnippet
+
+snippet import "Imports a uml doc and adds import define" !b
+!define _`!p snip.rv = shortname(t[1]).upper()`_INCLUDE_
+!include $1.uml
+endsnippet
+
+snippet class "Creates a UML class" !b
+class $1 {
+	$0
+}
+endsnippet
+
+snippet interface "Creates a UML interface" !b
+interface $1 {
+	$0
+}
+endsnippet

@@ -28,3 +28,18 @@
 [submodule "bundle/neocomplcache"]
 	path = bundle/neocomplcache
 	url = https://github.com/Shougo/neocomplcache.vim
+[submodule "bundle/plantuml"]
+	path = bundle/plantuml
+	url = https://github.com/aklt/plantuml-syntax.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bundle/airline"]
+	path = bundle/airline
+	url = https://github.com/bling/vim-airline
+[submodule "bundle/signify"]
+	path = bundle/signify
+	url = https://github.com/mhinz/vim-signify
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/scrooloose/syntastic

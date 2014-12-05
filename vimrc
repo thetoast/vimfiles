@@ -17,7 +17,11 @@ set scrolloff=5
 
 " set statusline
 set laststatus=2
-set statusline=%<[%02n]\ %F%(\ %m%h%w%y%r%)\ %a%=\ %l,%c%V/%L\ (%P)\ [%O:%02B]
+"set statusline=%<[%02n]\ %F%(\ %m%h%w%y%r%)\ %a%=\ %l,%c%V/%L\ (%P)\ [%O:%02B]
+
+" AIRLINE {{{
+let g:airline_powerline_fonts = 1
+" }}}
 
 set winminheight=0 " for window rolodexing
 
@@ -247,6 +251,16 @@ if filereadable($HOME . '/_vimlocal')
     exec "source " . $HOME . "/_vimlocal"
 elseif filereadable($HOME . '/.vimlocal')
     exec "source " . $HOME . "/.vimlocal"
+endif
+
+" load project config
+if filereadable('.vimproj')
+    source .vimproj
+    augroup vimproj
+    if (g:proj_show_nerdtree)
+        au vimproj VimEnter * NERDTree
+        au vimproj VimEnter * wincmd p
+    endif
 endif
 
 " enable pathogen
