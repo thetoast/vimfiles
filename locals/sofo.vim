@@ -1,7 +1,6 @@
 " Local Vim configuration for Sonic Foundry
 
 "set gfn=ProggyCleanTT:h12
-let g:airline_powerline_fonts=1
 set encoding=utf-8
 set gfn=Anonymice\ Powerline:h12
 
