@@ -43,3 +43,9 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic
+[submodule "bundle/Tabular"]
+	path = bundle/Tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/jira-complete"]
+	path = bundle/jira-complete
+	url = https://github.com/mnpk/vim-jira-complete.git

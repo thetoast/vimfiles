@@ -1,3 +1,5 @@
+extends javascript
+
 snippet -//\s?API- "Adds a new API comment for Desktop Recorder WebService" rb
 //==========================================================================
 // DesktopRecorder.aspx/$1
@@ -95,4 +97,50 @@ endsnippet
 
 snippet prom "Inserts a Q.Promise<T> type declaration" !
 Q.Promise<$1>
+endsnippet
+
+global !p
+#def indent(text):
+#	snip.shift()
+#	# snip.mkline() doesn't seem to add the right indentation
+#	# if snip.rv isn't being used to store all of the output...
+#	# ideally, we could just [snip.mkline(line) for line in lines]
+#	# but that doesn't work
+#	#
+#	# let's back up snip.rv, then use it to build our output
+#	oldRv = snip.rv
+#	snip.rv = ""
+#
+#	# indent the lines
+#	lines = snip.v.text.split("\n")
+#	#snip.rv += "==" + "\n".join(lines) + "=="
+#	if snip.v.mode == "V": lines.pop()
+#	for line in lines:
+#		if snip.rv != "":
+#			snip.rv += "\n"
+#			snip.rv += snip.mkline(line)
+#		else:
+#			snip.rv += line
+#
+#	# restore snip.rv
+#	indented = snip.rv
+#	snip.rv = oldRv
+#
+#	return indented
+def indent(text):
+	lines = snip.v.text.split("\n")
+	if snip.v.mode == "V": lines.pop()
+
+	indented = ""
+	for line in lines:
+		if indented != "": indented += "\n"
+		indented += "\t" + line
+
+	return indented
+endglobal
+
+snippet if "Creates an if statement and optionally puts text in it" !b
+if (${1:condition}) {
+	${VISUAL}$0
+}`!p import vim; vim.command("normal =i{") `
 endsnippet
