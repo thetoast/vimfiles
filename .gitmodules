@@ -49,3 +49,6 @@
 [submodule "bundle/jira-complete"]
 	path = bundle/jira-complete
 	url = https://github.com/mnpk/vim-jira-complete.git
+[submodule "bundle/vimwiki"]
+	path = bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git
