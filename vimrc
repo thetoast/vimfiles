@@ -79,6 +79,9 @@ nno <Leader>l :cn<CR><C-w>_:copen<CR>z10<CR><C-w><C-p>
 " auto compile latex files
 au BufWritePost *.tex :call system('latex -quiet ' . bufname('%'))
 
+" auto compile PlantUML files
+au BufWritePost *.uml :call job_start('plantuml -o img ' . bufname('%'))
+
 " show quickfix window after make
 au QuickFixCmdPost make cw
 au QuickFixCmdPost make call MarkErrors()
@@ -94,7 +97,7 @@ au WinLeave * setlocal nocursorline
 
 " SuperTab
 let g:SuperTabDefaultCompletionType='context'
-let g:SuperTabDefaultCompletionType="<c-n>"
+let g:SuperTabDefaultCompletionType="<c-o>"
 
 " UltiSnips
 let g:UltiSnipsEditSplit='vertical'
@@ -114,6 +117,7 @@ if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns['typescript'] = '[^. \t]\.\%(\h\w*\)\?'
+let g:neocomplcache_omni_patterns['javascript'] = '[^. \t]\.\%(\h\w*\)\?'
 
 inoremap <expr><C-g>    neocomplcache#undo_completion()
 inoremap <expr><C-l>    neocomplcache#complete_common_string()
@@ -135,7 +139,8 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " }}}
@@ -259,6 +264,9 @@ endfunction
 " declare pathogen disabled list
 let g:pathogen_disabled = []
 call add(g:pathogen_disabled, 'jslint.vim')
+
+" enable eslint syntastic checker
+let g:syntastic_javascript_checkers = ['eslint']
 
 " load local configs
 if filereadable($HOME . '/_vimlocal')
